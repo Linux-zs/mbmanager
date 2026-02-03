@@ -8,7 +8,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./data:/data                    # Data directory for database and backups
+      - ./data:/app/data                    # Data directory for database and backups
       - ./logs:/app/logs                # Application logs
       - /usr/bin:/tools:ro              # Mount host tools (mysqldump, etc.) as read-only
     environment:
