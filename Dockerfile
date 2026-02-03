@@ -16,25 +16,38 @@ COPY . .
 # Build the application
 RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -ldflags="-w -s" -o mbmanager ./cmd/server
 
+# Frontend build stage
+FROM node:18-alpine AS frontend-builder
+
+WORKDIR /app/web
+
+# Copy frontend files
+COPY web/package*.json ./
+RUN npm install
+
+COPY web/ ./
+RUN npm run build
+
 # Runtime stage
-FROM alpine:latest
+FROM alpine:3.20
 
 # Install runtime dependencies
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     ca-certificates \
     tzdata \
-    mysql-client \
+    mariadb-client \
     mariadb-connector-c \
-    wget
+    wget \
+    bash
 
 WORKDIR /app
 
 # Copy binary from builder
 COPY --from=builder /app/mbmanager .
 
-# Copy web assets
-COPY --from=builder /app/web/dist ./web/dist
-COPY --from=builder /app/web/templates ./web/templates
+# Copy web assets from frontend builder
+COPY --from=frontend-builder /app/web/dist ./web/dist
+COPY web/templates ./web/templates
 
 # Create necessary directories
 RUN mkdir -p /data/backups /data/db /app/logs

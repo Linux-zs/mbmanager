@@ -53,7 +53,7 @@ MBManager (MySQL Backup Manager) is a comprehensive web-based MySQL backup manag
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/mbmanager.git
+git clone https://github.com/Linux-zs/mbmanager.git
 cd mbmanager
 ```
 
@@ -198,7 +198,7 @@ MBManager (MySQL备份管理器) 是一个基于Web的MySQL数据库备份管理
 
 1. 克隆仓库:
 ```bash
-git clone https://github.com/yourusername/mbmanager.git
+git clone https://github.com/Linux-zs/mbmanager.git
 cd mbmanager
 ```
 
