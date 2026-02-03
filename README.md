@@ -204,7 +204,7 @@ cd mbmanager
 
 2. 启动应用:
 ```bash
-docker-compose up -d
+docker compose up -d --build
 ```
 
 3. 访问Web界面: `http://localhost:8080`
@@ -223,6 +223,9 @@ docker-compose up -d
 **后端设置:**
 
 ```bash
+#创建文件夹
+mkdir data logs
+
 # 安装依赖
 go mod download
 
@@ -250,7 +253,7 @@ npm run dev
 
 ### 配置
 
-应用使用SQLite存储数据，首次运行时会自动创建必要的目录:
+应用使用SQLite存储数据，首次运行时需要创建必要的目录:
 
 - `/data` - 数据库和备份存储
 - `/logs` - 应用日志
