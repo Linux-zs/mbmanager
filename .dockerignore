@@ -1,0 +1,59 @@
+# Build artifacts
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+/bin/
+/dist/
+mbmanager
+dbbak
+
+# Data and logs
+/data/
+/logs/
+*.db
+*.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.claude/
+
+# Node modules and frontend build
+node_modules/
+web/node_modules/
+web/dist/
+
+# Environment and config files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+nul
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Docker
+docker-compose.yml
+.dockerignore
+
+# Test files
+*_test.go
+tools/

@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  dbbak:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: dbbak
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data/db:/data/db           # SQLite数据库
+      - ./data/backups:/data/backups # 本地备份存储
+      - /usr/bin:/tools              # 挂载宿主机工具目录（mysqldump等）
+    environment:
+      - TZ=Asia/Shanghai
+      - DB_PATH=/data/db/dbbak.db
+      - BACKUP_PATH=/data/backups
+      - GIN_MODE=release
+      - SERVER_PORT=8080
+    networks:
+      - dbbak-network
+
+networks:
+  dbbak-network:
+    driver: bridge

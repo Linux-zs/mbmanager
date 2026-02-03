@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mbmanager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mbmanager
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/data                    # Data directory for database and backups
+      - ./logs:/app/logs                # Application logs
+      - /usr/bin:/tools:ro              # Mount host tools (mysqldump, etc.) as read-only
+    environment:
+      - TZ=Asia/Shanghai
+      - GIN_MODE=release
+      - SERVER_PORT=8080
+    networks:
+      - mbmanager-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 3s
+      start_period: 10s
+      retries: 3
+
+networks:
+  mbmanager-network:
+    driver: bridge
