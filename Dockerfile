@@ -3,6 +3,9 @@ FROM golang:1.21-alpine AS builder
 
 WORKDIR /app
 
+# Use Chinese mirror for faster package downloads
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # Install build dependencies
 RUN apk add --no-cache git make gcc musl-dev
 
@@ -21,6 +24,9 @@ FROM node:18-alpine AS frontend-builder
 
 WORKDIR /app/web
 
+# Use Chinese mirror for faster package downloads
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+
 # Copy frontend files
 COPY web/package*.json ./
 RUN npm install
@@ -30,6 +36,9 @@ RUN npm run build
 
 # Runtime stage
 FROM alpine:3.20
+
+# Use Chinese mirror for faster package downloads
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # Install runtime dependencies
 RUN apk update && apk add --no-cache \
