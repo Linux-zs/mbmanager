@@ -61,7 +61,7 @@ COPY --from=frontend-builder /app/web/dist ./web/dist
 COPY web/templates ./web/templates
 
 # Create necessary directories
-RUN mkdir -p /data/backups /data/db /app/logs
+RUN mkdir -p /app/data/backups /app/data/db /app/logs
 
 # Set timezone
 ENV TZ=Asia/Shanghai
